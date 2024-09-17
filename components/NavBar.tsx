@@ -4,13 +4,14 @@ import { lightLogo, darkLogo } from "@/lib/constants/images";
 import Image from "next/image";
 import { Switch } from "./ui/switch";
 import { NavItem } from "@/lib/types/types";
+import { MenuIcon, X } from "lucide-react";
 
 const navItems: NavItem[] = [{ text: "Shop" }, { text: "About" }, { text: "Contact" }];
 
 export default function NavBar() {
 	const [theme, setTheme] = useState<boolean>(false);
 	const [hasScrolled, setHasScrolled] = useState<boolean>(false);
-	// const [toggleMenu, setToggleMenu] = useState<boolean>(false); for smaller device
+	const [toggleMenu, setToggleMenu] = useState<boolean>(false);
 
 	// Add shadow effect on navbar once page is scrolled
 	useEffect(() => {
@@ -42,6 +43,10 @@ export default function NavBar() {
 		}
 	};
 
+	const menuToggler = () => {
+		setToggleMenu(!toggleMenu);
+	};
+
 	useEffect(() => {
 		const storedTheme = localStorage.getItem("theme");
 		if (storedTheme === "dark") {
@@ -52,9 +57,9 @@ export default function NavBar() {
 
 	return (
 		<section
-			className={`w-full top-0 sticky flex justify-center items-center ${
+			className={`w-full top-0 fixed flex flex-col justify-center items-center bg-background ${
 				hasScrolled ? "shadow-lg" : ""
-			}`}
+			} z-10`}
 		>
 			<div className="w-11/12 h-28 flex justify-between items-center">
 				<div className="relative w-40 h-28 flex justify-center items-center">
@@ -65,7 +70,9 @@ export default function NavBar() {
 						className="object-contain"
 					/>
 				</div>
-				<div className="w-2/6 flex justify-evenly items-center">
+
+				{/* Larger viewport */}
+				<div className="hidden w-2/6 md:flex justify-evenly items-center">
 					<ul className="w-4/6 flex justify-evenly items-center">
 						{navItems.map(({ text }, idx) => (
 							<li key={idx}>{text}</li>
@@ -75,7 +82,26 @@ export default function NavBar() {
 					{/* Theme */}
 					<Switch onCheckedChange={toggleTheme} checked={theme} />
 				</div>
+
+				<div className="md:hidden flex flex-col">
+					{/* Menu toggler */}
+					{toggleMenu === true ? (
+						<X onClick={menuToggler} />
+					) : (
+						<MenuIcon onClick={menuToggler} />
+					)}
+				</div>
 			</div>
+			{/* Mobile */}
+			{toggleMenu && (
+				<div className="block w-11/12 md:hidden overflow-hidden">
+					<ul className="w-full flex flex-col justify-evenly items-start p-4 gap-4">
+						{navItems.map(({ text }, idx) => (
+							<li key={idx}>{text}</li>
+						))}
+					</ul>
+				</div>
+			)}
 		</section>
 	);
 }
