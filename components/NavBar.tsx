@@ -5,9 +5,23 @@ import Image from "next/image";
 import { Switch } from "./ui/switch";
 import { NavItem } from "@/lib/types/types";
 import { MenuIcon, ShoppingCartIcon, X } from "lucide-react";
+import {
+	NavigationMenu,
+	NavigationMenuContent,
+	NavigationMenuItem,
+	NavigationMenuList,
+	NavigationMenuTrigger,
+} from "./ui/navigation-menu";
 
 const navItems: NavItem[] = [
-	{ text: "Shop", href: "/shop" },
+	{
+		text: "Shop",
+		categories: [
+			{ category: "All", href: "/shop" },
+			{ category: "Men", href: "/men" },
+			{ category: "Women", href: "/women" },
+		],
+	},
 	{ text: "About", href: "/about" },
 	{ text: "Contact", href: "/contact" },
 ];
@@ -77,18 +91,32 @@ export default function NavBar() {
 				</div>
 
 				{/* Larger viewport */}
-				<div className="hidden w-2/6 md:flex justify-evenly items-center">
-					<ul className="w-4/6 flex justify-evenly items-center">
-						{navItems.map(({ text }, idx) => (
-							<li key={idx}>{text}</li>
+
+				<NavigationMenu className="hidden w-2/6 md:flex justify-evenly items-center">
+					<NavigationMenuList className="w-4/6 flex justify-evenly items-center">
+						{navItems.map(({ text, categories }, idx) => (
+							<NavigationMenuItem key={idx}>
+								<NavigationMenuTrigger>{text}</NavigationMenuTrigger>
+								{categories && (
+									<NavigationMenuContent>
+										<ul className="grid w-[400px] gap-3 p-4 md:w-[200px] md:grid-cols-1 lg:w-[300px] ">
+											{categories.map(({ category, href }, idx) => (
+												<li key={idx}>
+													<a href={href}>{category}</a>
+												</li>
+											))}
+										</ul>
+									</NavigationMenuContent>
+								)}
+							</NavigationMenuItem>
 						))}
-					</ul>
+					</NavigationMenuList>
 
 					{/* Theme */}
 					<Switch onCheckedChange={toggleTheme} checked={theme} />
 
 					<ShoppingCartIcon />
-				</div>
+				</NavigationMenu>
 
 				<div className="md:hidden flex gap-4">
 					<Switch onCheckedChange={toggleTheme} checked={theme} />
