@@ -9,9 +9,11 @@ import {
 	NavigationMenu,
 	NavigationMenuContent,
 	NavigationMenuItem,
+	NavigationMenuLink,
 	NavigationMenuList,
 	NavigationMenuTrigger,
 } from "./ui/navigation-menu";
+import Link from "next/link";
 
 const navItems: NavItem[] = [
 	{
@@ -79,7 +81,7 @@ export default function NavBar() {
 				hasScrolled ? "shadow-lg" : ""
 			} z-10`}
 		>
-			<div className="w-11/12 h-28 flex justify-between items-center">
+			<div className="w-11/12 h-28 flex justify-between items-center gap-4">
 				{/* Brand Logo */}
 				<div className="relative w-40 h-28 flex justify-center items-center">
 					<Image
@@ -92,17 +94,29 @@ export default function NavBar() {
 
 				{/* Larger viewport */}
 
-				<NavigationMenu className="hidden w-2/6 md:flex justify-evenly items-center">
-					<NavigationMenuList className="w-4/6 flex justify-evenly items-center">
-						{navItems.map(({ text, categories }, idx) => (
-							<NavigationMenuItem key={idx}>
-								<NavigationMenuTrigger>{text}</NavigationMenuTrigger>
+				<NavigationMenu className="hidden md:flex justify-evenly items-center w-3/6 max-w-screen-sm gap-4">
+					<NavigationMenuList className="w-4/6 flex justify-evenly items-center gap-4 flex-shrink-0">
+						{navItems.map(({ text, categories, href }, idx) => (
+							<NavigationMenuItem
+								key={idx}
+								className="flex justify-center items-center"
+							>
+								{categories ? (
+									<NavigationMenuTrigger>{text}</NavigationMenuTrigger>
+								) : href ? (
+									<Link href={href} legacyBehavior passHref>
+										<NavigationMenuLink className="text-center">
+											{text}
+										</NavigationMenuLink>
+									</Link>
+								) : null}
+
 								{categories && (
 									<NavigationMenuContent>
-										<ul className="grid w-[400px] gap-3 p-4 md:w-[200px] md:grid-cols-1 lg:w-[300px] ">
+										<ul className="grid w-[400px] gap-3 p-4 md:w-[200px] md:grid-cols-1 lg:w-[300px]">
 											{categories.map(({ category, href }, idx) => (
 												<li key={idx}>
-													<a href={href}>{category}</a>
+													<Link href={href}>{category}</Link>
 												</li>
 											))}
 										</ul>
