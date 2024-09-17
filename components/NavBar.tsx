@@ -94,12 +94,12 @@ export default function NavBar() {
 
 				{/* Larger viewport */}
 
-				<NavigationMenu className="hidden md:flex justify-evenly items-center w-3/6 max-w-screen-sm gap-4">
+				<NavigationMenu className="hidden md:flex justify-between items-center w-2/6 max-w-screen-[400px] gap-4">
 					<NavigationMenuList className="w-4/6 flex justify-evenly items-center gap-4 flex-shrink-0">
 						{navItems.map(({ text, categories, href }, idx) => (
 							<NavigationMenuItem
 								key={idx}
-								className="flex justify-center items-center"
+								className="flex justify-center items-center gap-4"
 							>
 								{categories ? (
 									<NavigationMenuTrigger>{text}</NavigationMenuTrigger>
@@ -127,9 +127,11 @@ export default function NavBar() {
 					</NavigationMenuList>
 
 					{/* Theme */}
-					<Switch onCheckedChange={toggleTheme} checked={theme} />
+					<div className="flex justify-evenly items-center min-w-24 max-w-32">
+						<Switch onCheckedChange={toggleTheme} checked={theme} />
 
-					<ShoppingCartIcon />
+						<ShoppingCartIcon />
+					</div>
 				</NavigationMenu>
 
 				<div className="md:hidden flex gap-4">
