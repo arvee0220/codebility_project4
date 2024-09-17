@@ -6,7 +6,11 @@ import { Switch } from "./ui/switch";
 import { NavItem } from "@/lib/types/types";
 import { MenuIcon, X } from "lucide-react";
 
-const navItems: NavItem[] = [{ text: "Shop" }, { text: "About" }, { text: "Contact" }];
+const navItems: NavItem[] = [
+	{ text: "Shop", href: "/shop" },
+	{ text: "About", href: "/about" },
+	{ text: "Contact", href: "/contact" },
+];
 
 export default function NavBar() {
 	const [theme, setTheme] = useState<boolean>(false);
@@ -83,7 +87,8 @@ export default function NavBar() {
 					<Switch onCheckedChange={toggleTheme} checked={theme} />
 				</div>
 
-				<div className="md:hidden flex flex-col">
+				<div className="md:hidden flex gap-4">
+					<Switch onCheckedChange={toggleTheme} checked={theme} />
 					{/* Menu toggler */}
 					{toggleMenu === true ? (
 						<X onClick={menuToggler} />
