@@ -4,7 +4,7 @@ import { lightLogo, darkLogo } from "@/lib/constants/images";
 import Image from "next/image";
 import { Switch } from "./ui/switch";
 import { NavItem } from "@/lib/types/types";
-import { MenuIcon, X } from "lucide-react";
+import { MenuIcon, ShoppingCartIcon, X } from "lucide-react";
 
 const navItems: NavItem[] = [
 	{ text: "Shop", href: "/shop" },
@@ -66,6 +66,7 @@ export default function NavBar() {
 			} z-10`}
 		>
 			<div className="w-11/12 h-28 flex justify-between items-center">
+				{/* Brand Logo */}
 				<div className="relative w-40 h-28 flex justify-center items-center">
 					<Image
 						src={theme ? darkLogo : lightLogo}
@@ -85,6 +86,8 @@ export default function NavBar() {
 
 					{/* Theme */}
 					<Switch onCheckedChange={toggleTheme} checked={theme} />
+
+					<ShoppingCartIcon />
 				</div>
 
 				<div className="md:hidden flex gap-4">
@@ -95,9 +98,12 @@ export default function NavBar() {
 					) : (
 						<MenuIcon onClick={menuToggler} />
 					)}
+					<ShoppingCartIcon />
 				</div>
+
+				{/* Cart icon */}
 			</div>
-			{/* Mobile */}
+			{/* Mobile Menu */}
 			{toggleMenu && (
 				<div className="block w-11/12 md:hidden overflow-hidden">
 					<ul className="w-full flex flex-col justify-evenly items-start p-4 gap-4">

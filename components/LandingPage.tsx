@@ -3,8 +3,8 @@ import Image from "next/image";
 
 export default function LandingPage() {
 	return (
-		<section className="w-full w-sc h-full md:h-screen flex justify-center items-center mt-32">
-			<div className="w-11/12 h-full flex flex-col md:flex-row justify-evenly items-center">
+		<section className="w-full w-sc h-full md:h-screen flex justify-center items-center mt-28">
+			<div className="w-11/12 h-screen flex flex-col md:flex-row justify-evenly items-center">
 				<div className="relative w-2/6 min-w-80 h-[73%] min-h-[500px] border-2 mt-10 md:-mt-32">
 					<Image
 						src={landingPagePhoto}
