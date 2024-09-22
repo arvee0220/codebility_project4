@@ -9,8 +9,7 @@ export default function LandingPage() {
 					<Image
 						src={landingPagePhoto}
 						alt="Landing Page Photo"
-						layout="fill"
-						objectFit="fill"
+						className="object-fill"
 					/>
 				</div>
 				<div className="min-w-80 w-3/6 h-[73%] min-h-[500px] flex flex-col justify-evenly items-center my-10 md:my-0 md:-mt-32 p-4">
