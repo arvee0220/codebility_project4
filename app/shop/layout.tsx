@@ -4,7 +4,10 @@ import { PropsWithChildren } from "react";
 const ShopLayout: React.FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<div className="min-h-screen flex flex-col">
-			<main className="flex-1 container mx-auto p-4">{children}</main>
+			<main className="w-11/12 h-full flex flex-auto container mx-auto  my-auto p-4">
+				<nav className="h/screen w-1/5">Nav bar</nav>
+				{children}
+			</main>
 		</div>
 	);
 };

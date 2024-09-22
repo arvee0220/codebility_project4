@@ -8,3 +8,12 @@ export type Category = {
 	category: string;
 	href: string;
 };
+
+export interface ShopItem {
+	id: number;
+	title: string;
+	price: number;
+	description: string;
+	image: string;
+	category: string;
+}
