@@ -78,7 +78,7 @@ export default function NavBar() {
 	return (
 		<section
 			className={`w-full top-0 fixed flex flex-col justify-center items-center bg-background ${
-				hasScrolled ? "shadow-lg" : ""
+				hasScrolled ? "shadow-lg bg-background" : "bg-background/70"
 			} z-10`}
 		>
 			<div className="w-11/12 h-28 flex justify-between items-center gap-4">

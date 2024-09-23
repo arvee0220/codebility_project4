@@ -1,6 +1,6 @@
 "use client";
+import ItemCard from "@/components/ItemCard";
 import { ShopItem } from "@/lib/types/types";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const ShopPage: React.FC = () => {
@@ -34,26 +34,8 @@ const ShopPage: React.FC = () => {
 
 	return (
 		<div className="relative grid grid-cols-3 gap-2 my-auto">
-			{shopItems?.map(({ id, title, price, description, image }) => (
-				<div
-					key={id}
-					className="h-[300px] w-[200px] flex flex-col justify-center items-center"
-				>
-					<div className="h-[200px] w-[100px] relative">
-						<Image
-							src={image}
-							alt="Item Image"
-							fill
-							priority
-							sizes="(max-width: 300px) 100vw, 300px"
-							className="object-fill"
-						/>
-					</div>
-					<h2>{title}</h2>
-					<p className="overflow-scroll">{description}</p>
-					<p>{price}</p>
-					<button>Add To Cart</button>
-				</div>
+			{shopItems?.map(({ id, title, price, description, image, category }) => (
+				<ItemCard key={id} value={{ title, price, description, image, category }} />
 			))}
 		</div>
 	);
