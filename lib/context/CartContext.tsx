@@ -38,8 +38,22 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 		setCartTotal(newCartTotal);
 	}, [cartItems]);
 
-	const addToCart = (item: CartItem) => {
-		setCartItems([...cartItems, item]);
+	const addToCart = (productToAdd: CartItem) => {
+		console.log("Adding to cart:", productToAdd);
+		setCartItems((prevItems) => {
+			const existingCartItem = prevItems.find((cartItem) => cartItem.id === productToAdd.id);
+			console.log("Existing cart item:", existingCartItem);
+			if (existingCartItem) {
+				console.log("Updating quantity for:", existingCartItem);
+				return prevItems.map((cartItem) =>
+					cartItem.id === productToAdd.id
+						? { ...cartItem, quantity: cartItem.quantity + 1 }
+						: cartItem
+				);
+			}
+			console.log("Adding new item to cart.");
+			return [...prevItems, { ...productToAdd, quantity: 1 }];
+		});
 	};
 
 	const removeFromCart = (id: number) => {
@@ -52,7 +66,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
 	return (
 		<CartContext.Provider
-			value={{ cartItems, addToCart, removeFromCart, clearCartItem, cartCount, cartTotal }}
+			value={{
+				cartItems,
+				addToCart,
+				removeFromCart,
+				clearCartItem,
+				cartCount,
+				cartTotal,
+			}}
 		>
 			{children}
 		</CartContext.Provider>

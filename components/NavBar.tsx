@@ -153,7 +153,7 @@ export default function NavBar() {
 							<DropdownMenuContent className="w-[400px] mr-14">
 								<DropdownMenuLabel>My Cart</DropdownMenuLabel>
 								<DropdownMenuSeparator />
-								<DropdownMenuGroup>
+								<DropdownMenuGroup className="overflow-y-scroll">
 									{cartItems.length === 0 ? (
 										<p className="p-2">Your cart is empty</p>
 									) : (
@@ -170,6 +170,7 @@ export default function NavBar() {
 													<p className="text-xs">{item.title}</p>
 													<p className="text-xs">${item.price}</p>
 												</div>
+												<div className="text-xs">{item.quantity}</div>
 											</div>
 										))
 									)}
@@ -198,7 +199,7 @@ export default function NavBar() {
 						<DropdownMenuContent className="w-[350px] mr-4">
 							<DropdownMenuLabel>My Cart</DropdownMenuLabel>
 							<DropdownMenuSeparator />
-							<DropdownMenuGroup>
+							<DropdownMenuGroup className="overflow-y-scroll">
 								{cartItems.length === 0 ? (
 									<p className="p-2">Your cart is empty</p>
 								) : (
@@ -215,7 +216,7 @@ export default function NavBar() {
 												<p className="text-xs">{item.title}</p>
 												<p className="text-xs">${item.price}</p>
 											</div>
-											<div className="text-xs">Item quantity</div>
+											<div className="text-xs">{item.quantity}</div>
 										</div>
 									))
 								)}

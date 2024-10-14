@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 const ShopPage: React.FC = () => {
 	const [shopItems, setShopItems] = useState<ShopItem[] | null>(null);
-	const [cart, setCart] = useState<ShopItem[]>([]);
 
 	useEffect(() => {
 		const fetchShopItem = async () => {
@@ -33,22 +32,10 @@ const ShopPage: React.FC = () => {
 
 	console.log("Shop Items: ", shopItems);
 
-	const addToCart = (item: ShopItem) => {
-		setCart((prevCart) => [...prevCart, item]); // Add item to cart
-	};
-
-	console.log("Cart Items: ", cart);
-
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 my-auto">
 			{shopItems?.map(({ id, title, price, description, image, category }) => (
-				<ItemCard
-					key={id}
-					value={{ title, price, description, image, category }}
-					onAddToCart={() =>
-						addToCart({ id, title, price, description, image, category })
-					}
-				/>
+				<ItemCard key={id} value={{ id, title, price, description, image, category }} />
 			))}
 		</div>
 	);
