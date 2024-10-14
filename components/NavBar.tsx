@@ -150,7 +150,7 @@ export default function NavBar() {
 								<ShoppingCartIcon />
 							</DropdownMenuTrigger>
 
-							<DropdownMenuContent className="w-60 mr-14">
+							<DropdownMenuContent className="w-[400px] mr-14">
 								<DropdownMenuLabel>My Cart</DropdownMenuLabel>
 								<DropdownMenuSeparator />
 								<DropdownMenuGroup>
@@ -160,15 +160,16 @@ export default function NavBar() {
 										cartItems.map((item) => (
 											<div key={item.id} className="p-2">
 												<div className="flex justify-between">
-													<p>{item.title}</p>
-													<p>${item.price}</p>
+													<Image
+														src={item.image}
+														alt={item.title}
+														width={40}
+														height={40}
+														className="rounded-sm"
+													/>
+													<p className="text-xs">{item.title}</p>
+													<p className="text-xs">${item.price}</p>
 												</div>
-												<Image
-													src={item.image}
-													alt={item.title}
-													width={40}
-													height={40}
-												/>
 											</div>
 										))
 									)}
