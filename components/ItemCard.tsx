@@ -9,7 +9,7 @@ import Link from "next/link";
 const ItemCard: React.FC<ItemCardProps> = ({ value: { title, price, description, image } }) => {
 	return (
 		<Card className="h-[380px] w-[300px] flex flex-col">
-			<Link href={"/itemDetails"}>
+			<Link href={"/itemDetails"} className="rounded-md">
 				<CardHeader className="h-[220px]">
 					<div className="h-[150px] w-[100%] relative">
 						<Image
@@ -18,7 +18,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ value: { title, price, description,
 							fill
 							priority
 							sizes="(max-width: 300px) 100vw, 300px"
-							className="object-fill rounded-md"
+							className="rounded-md"
 						/>
 					</div>
 					<CardTitle>{title}</CardTitle>

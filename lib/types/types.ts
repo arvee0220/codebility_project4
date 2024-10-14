@@ -20,4 +20,5 @@ export interface ShopItem {
 
 export interface ItemCardProps {
 	value: { title: string; price: number; description: string; image: string; category: string };
+	onAddToCart: () => void;
 }
