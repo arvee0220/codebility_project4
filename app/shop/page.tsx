@@ -33,7 +33,7 @@ const ShopPage: React.FC = () => {
 	console.log("Shop Items: ", shopItems);
 
 	return (
-		<div className="relative grid grid-cols-3 gap-2 my-auto">
+		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 my-auto">
 			{shopItems?.map(({ id, title, price, description, image, category }) => (
 				<ItemCard key={id} value={{ title, price, description, image, category }} />
 			))}
