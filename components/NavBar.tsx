@@ -14,6 +14,16 @@ import {
 	NavigationMenuTrigger,
 } from "./ui/navigation-menu";
 import Link from "next/link";
+import {
+	DropdownMenu,
+	DropdownMenuGroup,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+	DropdownMenuContent,
+} from "./ui/dropdown-menu";
+
+import { Button } from "./ui/button";
 
 const navItems: NavItem[] = [
 	{
@@ -132,7 +142,19 @@ export default function NavBar() {
 					<div className="flex justify-evenly items-center min-w-24 max-w-32">
 						<Switch onCheckedChange={toggleTheme} checked={theme} />
 
-						<ShoppingCartIcon />
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<ShoppingCartIcon />
+							</DropdownMenuTrigger>
+
+							<DropdownMenuContent className="w-60 mr-14">
+								<DropdownMenuLabel>My Cart</DropdownMenuLabel>
+								<DropdownMenuSeparator />
+								<DropdownMenuGroup></DropdownMenuGroup>
+								<DropdownMenuSeparator />
+								<Button className="w-full">Checkout</Button>
+							</DropdownMenuContent>
+						</DropdownMenu>
 					</div>
 				</NavigationMenu>
 
@@ -144,7 +166,20 @@ export default function NavBar() {
 					) : (
 						<MenuIcon onClick={menuToggler} />
 					)}
-					<ShoppingCartIcon />
+
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<ShoppingCartIcon />
+						</DropdownMenuTrigger>
+
+						<DropdownMenuContent className="w-60 mr-4">
+							<DropdownMenuLabel>My Cart</DropdownMenuLabel>
+							<DropdownMenuSeparator />
+							<DropdownMenuGroup></DropdownMenuGroup>
+							<DropdownMenuSeparator />
+							<Button className="w-full">Checkout</Button>
+						</DropdownMenuContent>
+					</DropdownMenu>
 				</div>
 
 				{/* Cart icon */}
