@@ -24,6 +24,7 @@ import {
 } from "./ui/dropdown-menu";
 
 import { Button } from "./ui/button";
+import { useCart } from "@/lib/context/CartContext";
 
 const navItems: NavItem[] = [
 	{
@@ -42,6 +43,8 @@ export default function NavBar() {
 	const [theme, setTheme] = useState<boolean>(false);
 	const [hasScrolled, setHasScrolled] = useState<boolean>(false);
 	const [toggleMenu, setToggleMenu] = useState<boolean>(false);
+
+	const { cartItems } = useCart();
 
 	// Add shadow effect on navbar once page is scrolled
 	useEffect(() => {
@@ -150,7 +153,26 @@ export default function NavBar() {
 							<DropdownMenuContent className="w-60 mr-14">
 								<DropdownMenuLabel>My Cart</DropdownMenuLabel>
 								<DropdownMenuSeparator />
-								<DropdownMenuGroup></DropdownMenuGroup>
+								<DropdownMenuGroup>
+									{cartItems.length === 0 ? (
+										<p className="p-2">Your cart is empty</p>
+									) : (
+										cartItems.map((item) => (
+											<div key={item.id} className="p-2">
+												<div className="flex justify-between">
+													<p>{item.title}</p>
+													<p>${item.price}</p>
+												</div>
+												<Image
+													src={item.image}
+													alt={item.title}
+													width={40}
+													height={40}
+												/>
+											</div>
+										))
+									)}
+								</DropdownMenuGroup>
 								<DropdownMenuSeparator />
 								<Button className="w-full">Checkout</Button>
 							</DropdownMenuContent>
@@ -175,7 +197,26 @@ export default function NavBar() {
 						<DropdownMenuContent className="w-60 mr-4">
 							<DropdownMenuLabel>My Cart</DropdownMenuLabel>
 							<DropdownMenuSeparator />
-							<DropdownMenuGroup></DropdownMenuGroup>
+							<DropdownMenuGroup>
+								{cartItems.length === 0 ? (
+									<p className="p-2">Your cart is empty</p>
+								) : (
+									cartItems.map((item) => (
+										<div key={item.id} className="p-2">
+											<div className="flex justify-between">
+												<p>{item.title}</p>
+												<p>${item.price}</p>
+											</div>
+											<Image
+												src={item.image}
+												alt={item.title}
+												width={40}
+												height={40}
+											/>
+										</div>
+									))
+								)}
+							</DropdownMenuGroup>
 							<DropdownMenuSeparator />
 							<Button className="w-full">Checkout</Button>
 						</DropdownMenuContent>

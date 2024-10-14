@@ -5,8 +5,15 @@ import Image from "next/image";
 import { ItemCardProps } from "@/lib/types/types";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { useCart } from "@/lib/context/CartContext";
 
-const ItemCard: React.FC<ItemCardProps> = ({ value: { title, price, description, image } }) => {
+const ItemCard: React.FC<ItemCardProps> = ({ value: { id, title, price, description, image } }) => {
+	const { addToCart } = useCart();
+
+	const handleAddToCart = () => {
+		addToCart({ id, title, price, image });
+	};
+
 	return (
 		<Card className="h-[380px] w-[300px] flex flex-col">
 			<Link href={"/itemDetails"} className="rounded-md">
@@ -29,7 +36,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ value: { title, price, description,
 					{description}
 				</CardDescription>
 				<p>{price}</p>
-				<Button className="w-full" size={"sm"}>
+				<Button className="w-full" size={"sm"} onClick={handleAddToCart}>
 					Add To Cart
 				</Button>
 			</CardContent>
