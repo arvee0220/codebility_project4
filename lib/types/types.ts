@@ -19,8 +19,14 @@ export interface ShopItem {
 }
 
 export interface ItemCardProps {
-	value: {id:number, title: string; price: number; description: string; image: string; category: string };
-	
+	value: {
+		id: number;
+		title: string;
+		price: number;
+		description: string;
+		image: string;
+		category: string;
+	};
 }
 
 // Cart Items
@@ -29,10 +35,14 @@ export interface CartItem {
 	title: string;
 	price: number;
 	image: string;
+	quantity: number;
 }
 
 export interface CartContextType {
 	cartItems: CartItem[];
 	addToCart: (item: CartItem) => void;
 	removeFromCart: (id: number) => void;
+	clearCartItem: (cartItemToClear: CartItem) => CartItem[];
+	cartCount: number;
+	cartTotal: number;
 }

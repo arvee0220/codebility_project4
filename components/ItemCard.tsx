@@ -11,7 +11,14 @@ const ItemCard: React.FC<ItemCardProps> = ({ value: { id, title, price, descript
 	const { addToCart } = useCart();
 
 	const handleAddToCart = () => {
-		addToCart({ id, title, price, image });
+		addToCart({
+			id,
+			title,
+			price,
+			image,
+			quantity: 0,
+			
+		});
 	};
 
 	return (

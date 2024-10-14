@@ -14,6 +14,8 @@ export const useCart = () => {
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
 	const [cartItems, setCartItems] = useState<CartItem[]>([]);
+	const [cartCount, setCartCount] = useState(0);
+	const [cartTotal, setCartTotal] = useState(0);
 
 	useEffect(() => {
 		const storedCart = localStorage.getItem("cartItems");
@@ -25,6 +27,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 	// Save cart items to localStorage whenever the cartItems state changes
 	useEffect(() => {
 		localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+		const newCartCount = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
+		setCartCount(newCartCount);
+
+		const newCartTotal = cartItems.reduce(
+			(total, cartItem) => total + cartItem.quantity * cartItem.price,
+			0
+		);
+		setCartTotal(newCartTotal);
 	}, [cartItems]);
 
 	const addToCart = (item: CartItem) => {
@@ -35,8 +46,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 		setCartItems(cartItems.filter((item) => item.id !== id));
 	};
 
+	const clearCartItem = (cartItemToClear: CartItem) => {
+		return cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
+	};
+
 	return (
-		<CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+		<CartContext.Provider
+			value={{ cartItems, addToCart, removeFromCart, clearCartItem, cartCount, cartTotal }}
+		>
 			{children}
 		</CartContext.Provider>
 	);
