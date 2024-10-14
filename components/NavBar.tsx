@@ -20,8 +20,8 @@ const navItems: NavItem[] = [
 		text: "Shop",
 		categories: [
 			{ category: "All", href: "/shop" },
-			{ category: "Men", href: "/men" },
-			{ category: "Women", href: "/women" },
+			{ category: "Men", href: "/shop/men" },
+			{ category: "Women", href: "/shop/women" },
 		],
 	},
 	{ text: "About", href: "/about" },
