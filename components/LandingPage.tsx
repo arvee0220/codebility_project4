@@ -12,6 +12,7 @@ export default function LandingPage() {
 						className="object-fill"
 					/>
 				</div>
+
 				<div className="min-w-80 w-3/6 h-[73%] min-h-[500px] flex flex-col justify-evenly items-center my-10 md:my-0 md:-mt-32 p-4">
 					<h1>Header</h1>
 					<p>

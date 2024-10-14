@@ -84,12 +84,14 @@ export default function NavBar() {
 			<div className="w-11/12 h-28 flex justify-between items-center gap-4">
 				{/* Brand Logo */}
 				<div className="relative w-40 h-28 flex justify-center items-center">
-					<Image
-						src={theme ? darkLogo : lightLogo}
-						alt="Brand Logo"
-						fill
-						className="object-contain"
-					/>
+					<Link href="/">
+						<Image
+							src={theme ? darkLogo : lightLogo}
+							alt="Brand Logo"
+							fill
+							className="object-contain"
+						/>
+					</Link>
 				</div>
 
 				{/* Larger viewport */}
