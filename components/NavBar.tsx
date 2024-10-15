@@ -43,6 +43,7 @@ export default function NavBar() {
 	const [theme, setTheme] = useState<boolean>(false);
 	const [hasScrolled, setHasScrolled] = useState<boolean>(false);
 	const [toggleMenu, setToggleMenu] = useState<boolean>(false);
+	const [openSubMenus, setOpenSubMenus] = useState<number[]>([]);
 
 	const { cartItems } = useCart();
 
@@ -76,10 +77,6 @@ export default function NavBar() {
 		}
 	};
 
-	const menuToggler = () => {
-		setToggleMenu(!toggleMenu);
-	};
-
 	useEffect(() => {
 		const storedTheme = localStorage.getItem("theme");
 		if (storedTheme === "dark") {
@@ -87,6 +84,19 @@ export default function NavBar() {
 			setTheme(true);
 		}
 	}, []);
+
+	const menuToggler = () => {
+		setToggleMenu(!toggleMenu);
+	};
+
+	const toggleSubMenu = (index: number) => {
+		// Toggle submenu visibility by updating the openSubMenus array
+		if (openSubMenus.includes(index)) {
+			setOpenSubMenus(openSubMenus.filter((i) => i !== index));
+		} else {
+			setOpenSubMenus([...openSubMenus, index]);
+		}
+	};
 
 	return (
 		<section
@@ -206,16 +216,19 @@ export default function NavBar() {
 									cartItems.map((item) => (
 										<div key={item.id} className="p-2">
 											<div className="flex justify-between">
-												<Image
-													src={item.image}
-													alt={item.title}
-													width={40}
-													height={40}
-													className="rounded-sm"
-												/>
-												<p className="text-xs">{item.title}</p>
+												<div className="flex justify-start">
+													<Image
+														src={item.image}
+														alt={item.title}
+														width={40}
+														height={40}
+														className="rounded-sm"
+													/>
+													<p className="text-xs">{item.title}</p>
+												</div>
 												<p className="text-xs">${item.price}</p>
 											</div>
+
 											<div className="text-xs">{item.quantity}</div>
 										</div>
 									))
@@ -231,10 +244,43 @@ export default function NavBar() {
 			</div>
 			{/* Mobile Menu */}
 			{toggleMenu && (
-				<div className="block w-11/12 md:hidden overflow-hidden">
+				<div className="block w-11/12 md:hidden overflow-hidden bg-background">
 					<ul className="w-full flex flex-col justify-evenly items-start p-4 gap-4">
-						{navItems.map(({ text }, idx) => (
-							<li key={idx}>{text}</li>
+						{navItems.map(({ text, categories, href }, idx) => (
+							<li key={idx} className="w-full">
+								{/* Main link or toggle categories */}
+								{categories ? (
+									<div
+										className="flex justify-between w-full"
+										onClick={() => toggleSubMenu(idx)}
+									>
+										<p className="text-lg font-medium cursor-pointer">{text}</p>
+										{/* Indicate if submenu is open */}
+										{openSubMenus.includes(idx) ? (
+											<X size={16} />
+										) : (
+											<MenuIcon size={16} />
+										)}
+									</div>
+								) : (
+									<Link href={href || "#"} className="text-lg font-medium">
+										{text}
+									</Link>
+								)}
+
+								{/* Toggle subcategories */}
+								{categories && openSubMenus.includes(idx) && (
+									<ul className="flex flex-col gap-2 pl-4">
+										{categories.map(({ category, href }, idx) => (
+											<li key={idx}>
+												<Link href={href} className="text-sm">
+													{category}
+												</Link>
+											</li>
+										))}
+									</ul>
+								)}
+							</li>
 						))}
 					</ul>
 				</div>

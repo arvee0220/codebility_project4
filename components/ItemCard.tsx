@@ -23,8 +23,8 @@ const ItemCard: React.FC<ItemCardProps> = ({ value: { id, title, price, descript
 	return (
 		<Card className="h-[380px] w-[300px] flex flex-col" id={String(id)}>
 			<Link href={"/itemDetails"} className="rounded-md">
-				<CardHeader className="h-[220px]">
-					<div className="h-[150px] w-[100%] relative">
+				<CardHeader className="h-[220px] flex justify-center items-center">
+					<div className="h-[150px] w-[150px] relative">
 						<Image
 							src={image}
 							alt="Item Image"
